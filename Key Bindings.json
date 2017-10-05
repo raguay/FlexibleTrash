@@ -1,0 +1,3 @@
+[
+	{ "keys": ["Shift+d"], "command": "new_move_to_trash" }
+]
