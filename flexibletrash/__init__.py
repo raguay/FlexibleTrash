@@ -1,8 +1,9 @@
 #
 # Load the libraries that are used in these commands.
 #
-from fman import DirectoryPaneCommand, show_alert,  show_prompt, show_status_message, clear_status_message, PLATFORM, YES, NO, DATA_DIRECTORY, FMAN_VERSION
-import subprocess, re
+from fman import DirectoryPaneCommand, show_alert,  show_prompt, clear_status_message, PLATFORM, YES, NO, DATA_DIRECTORY, FMAN_VERSION
+import subprocess
+import re
 
 #
 # Function:    NewMoveToTrash
@@ -10,6 +11,8 @@ import subprocess, re
 # Description:  This command moves files and directories to the trash if Finder is
 #                       running. Otherwise, it deletes them using a low level delete.
 #
+
+
 class NewMoveToTrash(DirectoryPaneCommand):
 
     aliases = ('Delete', 'Move to trash', 'Move to recycle bin')
