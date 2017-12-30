@@ -2,6 +2,7 @@
 # Load the libraries that are used in these commands.
 #
 from fman import DirectoryPaneCommand, show_alert,  show_prompt, clear_status_message, PLATFORM, YES, NO, DATA_DIRECTORY, FMAN_VERSION
+from fman.url import as_human_readable
 import subprocess
 import re
 
@@ -32,7 +33,7 @@ class NewMoveToTrash(DirectoryPaneCommand):
         if len(to_delete) > 1:
             description = 'these %d items' % len(to_delete)
         else:
-            description = to_delete[0]
+            description = as_human_readable(to_delete[0])
         trash = 'Recycle Bin' if PLATFORM == 'Windows' else 'Trash'
         choice = show_alert(
             "Do you really want to move %s to the %s?" % (description, trash), YES | NO, YES
@@ -47,7 +48,7 @@ class NewMoveToTrash(DirectoryPaneCommand):
                 finderFound = subprocess.run([pluginLoc + "finderRunning"], stdout=subprocess.PIPE)
                 if re.search('not running',finderFound.stdout.decode("utf-8")) == None:
                     for item in to_delete:
-                        subprocess.run([pluginLoc + "trash", item])
+                        subprocess.run([pluginLoc + "trash", as_human_readable(item)])
                 else:
                     for item in to_delete:
-                        subprocess.run(["rm", "-Rf", item])
+                        subprocess.run(["rm", "-Rf", as_human_readable(item)])
