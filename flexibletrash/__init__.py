@@ -2,7 +2,8 @@
 # Load the libraries that are used in these commands.
 #
 from fman import DirectoryPaneCommand, show_alert,  show_prompt, clear_status_message, PLATFORM, YES, NO, DATA_DIRECTORY, FMAN_VERSION
-from fman.url import as_human_readable
+from fman.url import as_human_readable, splitscheme
+from fman.fs import move_to_trash
 import subprocess
 import re
 
@@ -39,7 +40,8 @@ class NewMoveToTrash(DirectoryPaneCommand):
             "Do you really want to move %s to the %s?" % (description, trash), YES | NO, YES
         )
         if choice & YES:
-            if PLATFORM != 'Mac':
+            file_system, file_path = splitscheme(to_delete[0])
+            if (PLATFORM != 'Mac') or (file_system != 'file://'):
                 move_to_trash(*to_delete)
             else:
                 pluginLoc = DATA_DIRECTORY + "/Plugins/FlexibleTrash/"
