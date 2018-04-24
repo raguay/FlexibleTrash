@@ -10,8 +10,8 @@ import re
 #
 # Function:    NewMoveToTrash
 #
-# Description:  This command moves files and directories to the trash if Finder is
-#                       running. Otherwise, it deletes them using a low level delete.
+# Description:  This command moves files and directories to the trash if Finder
+#               is running. Otherwise, it deletes them using a low level delete.
 #
 
 
@@ -25,6 +25,8 @@ class NewMoveToTrash(DirectoryPaneCommand):
             fmanvParts = FMAN_VERSION.split('.')
             if fmanvParts[0] == '0':
                 fmanv = int(fmanvParts[1])
+            else:
+                fmanv = 10 + int(fmanvParts[1])
         else:
             fmanv = FMAN_VERSION
         to_delete = self.get_chosen_files()
